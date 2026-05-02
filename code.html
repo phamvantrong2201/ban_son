@@ -367,6 +367,17 @@
      const orderItems = cart.map(item => `${item.name} (x${item.qty})`).join(', ');
      const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
 
+     // Tạo thời gian định dạng dd-mm-yyyy hh-mm-ss (UTC+7)
+     const now = new Date();
+     const utc7Date = new Date(now.getTime() + (7 * 60 * 60 * 1000));
+     const day = String(utc7Date.getUTCDate()).padStart(2, '0');
+     const month = String(utc7Date.getUTCMonth() + 1).padStart(2, '0');
+     const year = utc7Date.getUTCFullYear();
+     const hours = String(utc7Date.getUTCHours()).padStart(2, '0');
+     const minutes = String(utc7Date.getUTCMinutes()).padStart(2, '0');
+     const seconds = String(utc7Date.getUTCSeconds()).padStart(2, '0');
+     const timestamp = `${day}-${month}-${year} ${hours}-${minutes}-${seconds}`;
+
      const orderData = {
       name,
       phone,
@@ -374,7 +385,8 @@
       note,
       items: orderItems,
       total,
-      timestamp: new Date()
+      timestamp: timestamp,
+      cartDetails: cart
      };
 
      // URL của Google Apps Script Web App để nhận dữ liệu
