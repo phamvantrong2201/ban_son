@@ -376,7 +376,7 @@
      const hours = String(utc7Date.getUTCHours()).padStart(2, '0');
      const minutes = String(utc7Date.getUTCMinutes()).padStart(2, '0');
      const seconds = String(utc7Date.getUTCSeconds()).padStart(2, '0');
-     const timestamp = `${day}-${month}-${year} ${hours}-${minutes}-${seconds}`;
+     const timestamp = `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
 
      const orderData = {
       name,
