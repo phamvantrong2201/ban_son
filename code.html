@@ -323,6 +323,14 @@
    function updateQty(id, change) {
     const item = cart.find(i => i.id === id);
     if (item) {
+     if (change > 0) {
+      const product = products.find(p => p.__backendId === id);
+      const stock = product ? product.stock : 0;
+      if (item.qty + change > stock) {
+       alert('Sản phẩm này không đủ số lượng trong kho!');
+       return;
+      }
+     }
      item.qty += change;
      if (item.qty <= 0) removeFromCart(id);
      else updateCart();
