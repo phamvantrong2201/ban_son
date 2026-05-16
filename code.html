@@ -4,15 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sơn Nước Thiện Phát</title>
-  <link rel="icon" href="https://scontent.fdad1-4.fna.fbcdn.net/v/t39.30808-6/668700396_122096204090738647_955017850661954942_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=1d70fc&_nc_eui2=AeFbWtMM1yS3_efS__Ba9i-Y57AuJbupOvPnsC4lu6k68-qK22CTUsZBtvE_KMS40SHB7PsrZpLyzY1JsKiSa-76&_nc_ohc=_zaUrz8ZUOIQ7kNvwHP2G5B&_nc_oc=AdozfP6Vni7yorrETrNsvtLGSSh0G_u4BFtuVDZGRx63_0fXdOXW9GMJ_dA1hEgL94Q&_nc_zt=23&_nc_ht=scontent.fdad1-4.fna&_nc_gid=9mwWZjsv4RKrUREfFJs-EA&_nc_ss=7b2a8&oh=00_Af6weVA-So7-B4Py3q_z6b48IFmoEAQMrkfjtB4rxgOxxA&oe=69FBE2B6">
+  <link rel="icon" href="https://i.ibb.co/23jFwgtS/668700396-122096204090738647-955017850661954942-n.jpg">
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Poppins', sans-serif; }
+    body { font-family: 'Roboto', sans-serif; }
     .product-card { transition: all 0.3s ease; }
     .product-card:hover { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-    .price-badge { background: linear-gradient(135deg, var(--primary-color) 0%, #b91c1c 100%); }
+    .price-badge { background: linear-gradient(135deg, var(--primary-color, #dc2626) 0%, #b91c1c 100%); }
+    /* Chuyển màu mượt mà */
+    body, header, .product-card, div, input, textarea, select, button { transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
   </style>
   <script>
     tailwind.config = {
@@ -37,10 +39,13 @@
     <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
      <div class="flex items-center gap-3">
       <div class="w-12 h-12 rounded-lg overflow-hidden flex items-center justify-center shadow-sm">
-       <img src="https://scontent.fdad1-4.fna.fbcdn.net/v/t39.30808-6/668700396_122096204090738647_955017850661954942_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=1d70fc&_nc_eui2=AeFbWtMM1yS3_efS__Ba9i-Y57AuJbupOvPnsC4lu6k68-qK22CTUsZBtvE_KMS40SHB7PsrZpLyzY1JsKiSa-76&_nc_ohc=_zaUrz8ZUOIQ7kNvwHP2G5B&_nc_oc=AdozfP6Vni7yorrETrNsvtLGSSh0G_u4BFtuVDZGRx63_0fXdOXW9GMJ_dA1hEgL94Q&_nc_zt=23&_nc_ht=scontent.fdad1-4.fna&_nc_gid=9mwWZjsv4RKrUREfFJs-EA&_nc_ss=7b2a8&oh=00_Af6weVA-So7-B4Py3q_z6b48IFmoEAQMrkfjtB4rxgOxxA&oe=69FBE2B6" alt="Logo" class="w-full h-full object-cover">
+       <img src="https://i.ibb.co/23jFwgtS/668700396-122096204090738647-955017850661954942-n.jpg" alt="Logo" class="w-full h-full object-cover">
       </div>
       <h1 id="store-name" class="text-xl md:text-2xl font-bold text-dark">Sơn Nước Thiện Phát</h1>
      </div>     <div class="flex items-center gap-4">
+      <button id="theme-toggle" class="p-2 hover:bg-gray-100 rounded-lg transition" title="Đổi chế độ Sáng/Tối">
+       <i data-lucide="moon" class="w-5 h-5" id="theme-icon"></i>
+      </button>
       <div class="hidden md:flex relative">
        <input type="text" id="search-input" placeholder="Tìm sản phẩm..." class="pl-9 pr-4 py-2 border border-gray-200 rounded-full text-sm focus:outline-none focus:border-primary w-48"> <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2.5 text-muted"></i>
       </div><button id="cart-btn" class="relative p-2 hover:bg-gray-100 rounded-lg transition"> <i data-lucide="shopping-cart" class="w-6 h-6"></i> <span id="cart-count" class="absolute -top-1 -right-1 bg-primary text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">0</span> </button>
@@ -150,7 +155,7 @@
     text_color: '#1a1a2e',
     primary_color: '#dc2626',
     accent_color: '#f59e0b',
-    font_family: 'Poppins',
+    font_family: 'Roboto',
     font_size: 16
    };
 
@@ -198,6 +203,7 @@
     const text = config.text_color || defaultConfig.text_color;
     const primary = config.primary_color || defaultConfig.primary_color;
     const accent = config.accent_color || defaultConfig.accent_color;
+    const surface = config.surface_color || defaultConfig.surface_color;
     const font = config.font_family || defaultConfig.font_family;
     const size = config.font_size || defaultConfig.font_size;
 
@@ -205,6 +211,11 @@
     document.body.style.color = text;
     document.body.style.fontFamily = `${font}, sans-serif`;
     document.body.style.fontSize = `${size}px`;
+    document.body.style.setProperty('--primary-color', primary);
+
+    const isDark = bg === '#111827';
+    const borderColor = isDark ? '#374151' : '#e5e7eb';
+    const mutedColor = isDark ? '#9ca3af' : '#6b7280';
 
     const style = document.getElementById('dynamic-style') || document.createElement('style');
     style.id = 'dynamic-style';
@@ -215,6 +226,18 @@
      .text-accent { color: ${accent} !important; }
      .category-filter.active { background-color: ${primary} !important; color: white !important; }
      ::-webkit-scrollbar-thumb { background-color: ${primary}; }
+     
+     /* Ghi đè màu sắc cho Dark Mode */
+     .bg-white { background-color: ${surface} !important; }
+     .text-dark { color: ${text} !important; }
+     .text-muted { color: ${mutedColor} !important; }
+     .text-gray-700 { color: ${isDark ? '#e5e7eb' : '#374151'} !important; }
+     .border-gray-200, .border-gray-300 { border-color: ${borderColor} !important; }
+     .bg-gray-200, .bg-gray-100 { background-color: ${isDark ? '#374151' : '#e5e7eb'} !important; }
+     .hover\\:bg-gray-100:hover, .hover\\:bg-gray-300:hover { background-color: ${isDark ? '#4b5563' : '#f3f4f6'} !important; }
+     input, textarea, select { background-color: ${isDark ? '#1f2937' : '#ffffff'} !important; color: ${text} !important; }
+     .product-card { background-color: ${surface} !important; }
+     #cart-modal > div, #checkout-modal > div, #success-modal > div { background-color: ${surface} !important; color: ${text} !important; }
     `;
     if (!document.getElementById('dynamic-style')) document.head.appendChild(style);
    }
@@ -478,6 +501,28 @@
    document.getElementById('sort-select').addEventListener('change', () => {
     applyFilters();
     renderProducts();
+   });
+
+   // Xử lý Dark Mode / Light Mode
+   document.getElementById('theme-toggle').addEventListener('click', () => {
+    const isDark = currentConfig.background_color === '#111827';
+    const icon = document.getElementById('theme-icon');
+    
+    if (isDark) {
+     // Sang Light Mode
+     currentConfig.background_color = '#f9fafb';
+     currentConfig.surface_color = '#ffffff';
+     currentConfig.text_color = '#1a1a2e';
+    } else {
+     // Sang Dark Mode
+     currentConfig.background_color = '#111827';
+     currentConfig.surface_color = '#1f2937';
+     currentConfig.text_color = '#f9fafb';
+    }
+    
+    applyConfig(currentConfig);
+    icon.setAttribute('data-lucide', isDark ? 'moon' : 'sun');
+    lucide.createIcons();
    });
 
    document.getElementById('load-more-btn').addEventListener('click', () => {
